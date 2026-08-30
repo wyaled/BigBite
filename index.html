@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ef1b24">
+<title>Big Bite Stadionparken - Closing Checklist</title>
+<style>
+:root {
+  --red:#ef1b24;
+  --yellow:#f4b51f;
+  --green:#198754;
+  --ink:#111827;
+  --muted:#667085;
+  --bg:#f5f6f8;
+  --card:#ffffff;
+  --line:#e3e7ec;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Arial,Helvetica,sans-serif;
+}
+.app{
+  width:min(100%,780px);
+  margin:0 auto;
+  padding:clamp(10px,2.5vw,18px);
+}
+.hero{
+  background:var(--red);
+  color:white;
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:14px;
+}
+.brand{
+  font-size:clamp(26px,6vw,34px);
+  font-weight:900;
+  display:inline-block;
+  border-bottom:6px solid var(--yellow);
+  padding-bottom:4px;
+}
+.hero h1{
+  margin:14px 0 4px;
+  font-size:clamp(20px,4.7vw,27px);
+}
+.hero p{margin:0;opacity:.95}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:14px;
+}
+.hidden{display:none!important}
+.field{
+  display:block;
+  font-size:14px;
+  font-weight:800;
+  margin-bottom:14px;
+}
+.field input{
+  display:block;
+  width:100%;
+  margin-top:7px;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:white;
+  font-size:16px;
+}
+.btn{
+  width:100%;
+  min-height:52px;
+  border:0;
+  border-radius:13px;
+  padding:12px 16px;
+  font-size:17px;
+  font-weight:900;
+}
+.btn-primary{background:var(--red);color:white}
+.btn-green{background:var(--green);color:white}
+.btn-light{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.btn:disabled{background:#b9bec7;color:#fff;cursor:not-allowed;opacity:.8}
+.progress-top{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:center;
+  font-weight:900;
+  margin-bottom:8px;
+}
+.progress{
+  height:12px;
+  background:#eceef1;
+  border-radius:999px;
+  overflow:hidden;
+}
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:var(--yellow);
+  transition:width .2s ease;
+}
+.step-label{
+  color:var(--muted);
+  font-size:13px;
+  font-weight:800;
+  margin-top:14px;
+}
+.task-no{
+  margin-top:10px;
+  font-size:clamp(21px,5.4vw,30px);
+  font-weight:900;
+  line-height:1.35;
+}
+.task-en{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:clamp(16px,4vw,19px);
+  line-height:1.45;
+}
+.check-wrap{
+  margin-top:22px;
+  background:#fafafa;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:15px;
+}
+.check-label{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  font-size:16px;
+  font-weight:900;
+  cursor:pointer;
+}
+.check-label input{
+  width:28px;
+  height:28px;
+  min-width:28px;
+  accent-color:var(--red);
+}
+.nav{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:18px;
+}
+.message{
+  margin-top:12px;
+  padding:12px;
+  border-radius:11px;
+  background:#f2f4f7;
+  font-size:14px;
+  line-height:1.45;
+}
+.summary{
+  margin-top:12px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  overflow:hidden;
+}
+.summary-row{
+  padding:11px 13px;
+  border-bottom:1px solid var(--line);
+  font-size:14px;
+}
+.summary-row:last-child{border-bottom:0}
+.summary-row strong{display:block;margin-bottom:3px}
+.summary-row span{color:var(--muted)}
+.success{
+  text-align:center;
+  padding:30px 18px;
+}
+.success h2{
+  margin:0 0 10px;
+  color:#166534;
+  font-size:26px;
+}
+.success p{
+  margin:0;
+  font-size:19px;
+}
+.small{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.4;
+}
+@media(max-width:540px){
+  .app{padding:10px}
+  .hero{padding:18px}
+  .nav{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="hero">
+    <div class="brand">BIG BITE</div>
+    <h1>Daily Closing Checklist</h1>
+    <p>Stengerutine • Big Bite Stadionparken</p>
+  </header>
+
+  <section id="startScreen" class="card">
+    <h2 style="margin-top:0">Start closing</h2>
+    <p class="small">For everyday use. Enter your name and date, then complete one task at a time. If you leave before finishing, this browser will remember your progress for the same employee and date.</p>
+    <div id="resumeInfo" class="message hidden"></div>
+
+    <label class="field">Ansvarlig / Responsible
+      <input id="employee" type="text" placeholder="Employee name">
+    </label>
+
+    <label class="field">Dato / Date
+      <input id="date" type="date">
+    </label>
+
+    <button id="startBtn" class="btn btn-primary" type="button">Start checklist</button>
+    <div id="startMessage" class="message hidden"></div>
+  </section>
+
+  <section id="stepScreen" class="card hidden">
+    <div class="progress-top">
+      <span>Progress</span>
+      <span id="progressText">0 / 20</span>
+    </div>
+    <div class="progress"><div id="progressBar" class="progress-bar"></div></div>
+
+    <div id="stepLabel" class="step-label">Step 1 of 20</div>
+    <div id="taskNo" class="task-no"></div>
+    <div id="taskEn" class="task-en"></div>
+
+    <div class="check-wrap">
+      <label class="check-label">
+        <input id="taskCheck" type="checkbox">
+        <span>Done / Ferdig</span>
+      </label>
+    </div>
+
+    <div class="nav">
+      <button id="backBtn" class="btn btn-light" type="button">← Back</button>
+      <button id="nextBtn" class="btn btn-primary" type="button" disabled>Next →</button>
+    </div>
+
+    <div id="stepMessage" class="message">Tick “Done / Ferdig” to continue.</div>
+  </section>
+
+  <section id="reviewScreen" class="card hidden">
+    <div class="progress-top">
+      <span>Progress</span>
+      <span>20 / 20</span>
+    </div>
+    <div class="progress"><div class="progress-bar" style="width:100%"></div></div>
+
+    <h2>Ready to submit</h2>
+    <p><strong id="reviewName"></strong><br><span id="reviewDate" class="small"></span></p>
+
+    <div id="summary" class="summary"></div>
+
+    <div class="nav">
+      <button id="reviewBackBtn" class="btn btn-light" type="button">← Back</button>
+      <button id="submitBtn" class="btn btn-green" type="button">Submit Closing Report</button>
+    </div>
+
+    <div id="submitMessage" class="message">
+      The completed report will be saved to the Big Bite closing reports sheet.
+    </div>
+  </section>
+
+  <section id="successScreen" class="card success hidden">
+    <h2>Submitted ✅</h2>
+    <p>Thank you for Today 😊</p>
+    <button id="newClosingBtn" class="btn btn-primary" type="button" style="margin-top:22px">Start new closing</button>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycby7iAyy6wZo6Y0EACqsh-5l0oXQ5HQg-MQvOrmTEnTOwAH52RMPaufGdMsaHMlCYEkQ/exec";
+
+  var ITEMS = [{"no": "Klor på brett – rengjør/desinfiser brettene.", "en": "Clean/disinfect the trays with chlorine."}, {"no": "Vask under disken.", "en": "Clean underneath the counter."}, {"no": "Kontroller og registrer temperaturer.", "en": "Check and record temperatures."}, {"no": "Skift søppel ute.", "en": "Change the outside rubbish bag."}, {"no": "Sett stolene opp på bordene.", "en": "Put the chairs up on the tables."}, {"no": "Vask ståldelen/området ved dispensermaskinen.", "en": "Clean the stainless-steel area by the dispenser machine."}, {"no": "Ta av og rengjør delene/knappene på dispensermaskinen.", "en": "Remove and clean the parts/buttons on the dispenser machine."}, {"no": "Lås brusskapet.", "en": "Lock the drinks cabinet."}, {"no": "Bytt søppel inne.", "en": "Change the rubbish bags inside."}, {"no": "Gjør kontantoppgjør og tell kassen.", "en": "Complete the cash settlement and count the till."}, {"no": "I Admin: Kontantoppgjør → Z-rapport.", "en": "In Admin: Cash settlement → Z-report."}, {"no": "Vask/mopp gulvet.", "en": "Wash/mop the floor."}, {"no": "Tøm/plasser brødkasser utenfor døren.", "en": "Empty/place the bread crates outside the door."}, {"no": "Vask alt utstyr, inkludert deler til toastjernet.", "en": "Clean all equipment, including parts for the toast machine."}, {"no": "Ta søppel ned.", "en": "Take the rubbish downstairs."}, {"no": "Sett dressing fra disken i kjøl.", "en": "Put dressings from the counter into refrigeration."}, {"no": "Sett majones i kjøleskapet bak.", "en": "Store mayonnaise in the refrigerator at the back."}, {"no": "Kontroller at ovner og annet varmeutstyr er slått AV.", "en": "Check that ovens and all heating equipment are switched OFF."}, {"no": "Kontroller at majones, remulade og andre kjølevarer er satt i kjøleskap.", "en": "Check that mayonnaise, remoulade and other chilled products are refrigerated."}, {"no": "Gå gjennom hele sjekklisten én siste gang før du forlater butikken.", "en": "Review the full checklist one final time before leaving the store."}];
+  var current = 0;
+  var completed = new Array(ITEMS.length).fill(false);
+
+  var employee = document.getElementById("employee");
+  var date = document.getElementById("date");
+  var startScreen = document.getElementById("startScreen");
+  var stepScreen = document.getElementById("stepScreen");
+  var reviewScreen = document.getElementById("reviewScreen");
+  var successScreen = document.getElementById("successScreen");
+  var taskCheck = document.getElementById("taskCheck");
+  var nextBtn = document.getElementById("nextBtn");
+  var backBtn = document.getElementById("backBtn");
+
+  function today(){
+    var d = new Date();
+    return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  }
+
+  function showOnly(screen){
+    [startScreen, stepScreen, reviewScreen, successScreen].forEach(function(s){
+      s.classList.add("hidden");
+    });
+    screen.classList.remove("hidden");
+    window.scrollTo(0,0);
+  }
+
+  function doneCount(){
+    return completed.filter(Boolean).length;
+  }
+
+  function draftKey(){
+    var name = employee.value.trim().toLowerCase();
+    var closingDate = date.value;
+    if(!name || !closingDate) return "";
+    return "bigbite-closing:"+closingDate+":"+name;
+  }
+
+  function loadDraft(){
+    var key = draftKey();
+    if(!key) return null;
+    try {
+      var saved = window.localStorage.getItem(key);
+      return saved ? JSON.parse(saved) : null;
+    } catch(error) {
+      return null;
+    }
+  }
+
+  function saveDraft(){
+    var key = draftKey();
+    if(!key) return;
+    try {
+      window.localStorage.setItem(key, JSON.stringify({
+        current: current,
+        completed: completed,
+        updatedAt: new Date().toISOString()
+      }));
+    } catch(error) {
+      /* The checklist still works when private browsing blocks storage. */
+    }
+  }
+
+  function clearDraft(){
+    var key = draftKey();
+    if(!key) return;
+    try {
+      window.localStorage.removeItem(key);
+    } catch(error) {
+      /* Nothing else is required if storage is unavailable. */
+    }
+  }
+
+  function showDraftInfo(){
+    var info = document.getElementById("resumeInfo");
+    var draft = loadDraft();
+    if(draft && Array.isArray(draft.completed)){
+      var savedCount = draft.completed.slice(0, ITEMS.length).filter(Boolean).length;
+      info.textContent = "Saved progress found: "+savedCount+" / "+ITEMS.length+" completed. Tap Start checklist to continue.";
+      info.classList.remove("hidden");
+    } else {
+      info.textContent = "";
+      info.classList.add("hidden");
+    }
+  }
+
+  function renderStep(){
+    var item = ITEMS[current];
+    document.getElementById("stepLabel").textContent = "Step "+(current+1)+" of "+ITEMS.length;
+    document.getElementById("taskNo").textContent = item.no;
+    document.getElementById("taskEn").textContent = item.en;
+
+    taskCheck.checked = completed[current];
+    nextBtn.disabled = !taskCheck.checked;
+    nextBtn.textContent = current === ITEMS.length-1 ? "Review →" : "Next →";
+    backBtn.disabled = current === 0;
+
+    var count = doneCount();
+    document.getElementById("progressText").textContent = count+" / "+ITEMS.length;
+    document.getElementById("progressBar").style.width = Math.round(count/ITEMS.length*100)+"%";
+
+    document.getElementById("stepMessage").textContent =
+      taskCheck.checked ? "Task marked as done. You can continue." : "Tick “Done / Ferdig” to continue.";
+  }
+
+  taskCheck.addEventListener("change", function(){
+    completed[current] = taskCheck.checked;
+    nextBtn.disabled = !taskCheck.checked;
+    renderStep();
+    saveDraft();
+  });
+
+  document.getElementById("startBtn").addEventListener("click", function(){
+    var msg = document.getElementById("startMessage");
+    if(!employee.value.trim()){
+      msg.textContent = "Please enter employee name.";
+      msg.classList.remove("hidden");
+      employee.focus();
+      return;
+    }
+    if(!date.value){
+      msg.textContent = "Please choose the date.";
+      msg.classList.remove("hidden");
+      date.focus();
+      return;
+    }
+    msg.classList.add("hidden");
+    var draft = loadDraft();
+    if(draft && Array.isArray(draft.completed)) {
+      completed = draft.completed.slice(0, ITEMS.length).map(function(value){ return value === true; });
+      while(completed.length < ITEMS.length) completed.push(false);
+      current = Math.max(0, Math.min(Number(draft.current) || 0, ITEMS.length - 1));
+    } else {
+      completed = new Array(ITEMS.length).fill(false);
+      current = 0;
+    }
+    renderStep();
+    showOnly(stepScreen);
+  });
+
+  nextBtn.addEventListener("click", function(){
+    if(!completed[current]) return;
+    saveDraft();
+
+    if(current < ITEMS.length-1){
+      current++;
+      renderStep();
+      window.scrollTo(0,0);
+    } else {
+      renderReview();
+      showOnly(reviewScreen);
+    }
+  });
+
+  backBtn.addEventListener("click", function(){
+    if(current > 0){
+      current--;
+      renderStep();
+      saveDraft();
+      window.scrollTo(0,0);
+    }
+  });
+
+  document.getElementById("reviewBackBtn").addEventListener("click", function(){
+    current = ITEMS.length-1;
+    renderStep();
+    showOnly(stepScreen);
+  });
+
+  function renderReview(){
+    document.getElementById("reviewName").textContent = employee.value.trim();
+    document.getElementById("reviewDate").textContent = "Date: "+date.value;
+
+    var summary = document.getElementById("summary");
+    summary.innerHTML = "";
+    ITEMS.forEach(function(item, i){
+      var row = document.createElement("div");
+      row.className = "summary-row";
+      var strong = document.createElement("strong");
+      strong.textContent = "✅ "+(i+1)+". "+item.no;
+      var span = document.createElement("span");
+      span.textContent = item.en;
+      row.appendChild(strong);
+      row.appendChild(span);
+      summary.appendChild(row);
+    });
+  }
+
+  document.getElementById("submitBtn").addEventListener("click", function(){
+    if(doneCount() !== ITEMS.length) return;
+
+    var report = ITEMS.map(function(item, i){
+      return "✅ "+(i+1)+". "+item.no+" / "+item.en;
+    }).join("\n");
+
+    var submitBtn = document.getElementById("submitBtn");
+    var submitMessage = document.getElementById("submitMessage");
+    var payload = {
+      employee: employee.value.trim(),
+      date: date.value,
+      progress: "20 / 20",
+      checklist: report
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
+    submitMessage.textContent = "Saving the completed report...";
+    submitMessage.style.background = "";
+    submitMessage.style.color = "";
+    submitMessage.removeAttribute("role");
+
+    fetch(ENDPOINT, {
+      method: "POST",
+      headers: {"Content-Type": "text/plain;charset=utf-8"},
+      body: JSON.stringify(payload),
+      redirect: "follow"
+    })
+    .then(function(response){
+      if(!response.ok) throw new Error("Server returned "+response.status);
+      return response.text();
+    })
+    .then(function(text){
+      var result;
+      try { result = JSON.parse(text); } catch(error) { result = null; }
+      if(!result || result.success !== true){
+        throw new Error(result && result.error ? result.error : "The report was not confirmed as saved.");
+      }
+
+      clearDraft();
+      showOnly(successScreen);
+      completed = new Array(ITEMS.length).fill(false);
+      current = 0;
+      employee.value = "";
+      date.value = today();
+      submitMessage.textContent = "The completed report will be saved to the Big Bite closing reports sheet.";
+    })
+    .catch(function(error){
+      saveDraft();
+      submitMessage.textContent = "Could not save the report. Check the internet connection and try again. Your completed checklist is still saved on this device.";
+      submitMessage.style.background = "#fff1f2";
+      submitMessage.style.color = "#991b1b";
+      submitMessage.setAttribute("role", "alert");
+    })
+    .then(function(){
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit Closing Report";
+    });
+  });
+
+  document.getElementById("newClosingBtn").addEventListener("click", function(){
+    showOnly(startScreen);
+  });
+
+  employee.addEventListener("input", showDraftInfo);
+  date.addEventListener("change", showDraftInfo);
+
+  date.value = today();
+  showDraftInfo();
+})();
+</script>
+</body>
+</html>
